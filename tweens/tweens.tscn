@@ -1,0 +1,25 @@
+[gd_scene load_steps=3 format=3 uid="uid://dqmvhykbxu68h"]
+
+[ext_resource type="Script" path="res://tweens/tweens.gd" id="1_fcbyv"]
+[ext_resource type="Texture2D" uid="uid://lb25s7ad4plg" path="res://icon.svg" id="2_owrlp"]
+
+[node name="Tweens" type="Node2D"]
+script = ExtResource("1_fcbyv")
+
+[node name="Sprite2D" type="Sprite2D" parent="."]
+texture = ExtResource("2_owrlp")
+
+[node name="Control" type="Control" parent="."]
+layout_mode = 3
+anchors_preset = 0
+offset_right = 40.0
+offset_bottom = 40.0
+
+[node name="Label" type="Label" parent="Control"]
+layout_mode = 0
+offset_left = 171.0
+offset_top = 73.0
+offset_right = 211.0
+offset_bottom = 96.0
+text = "1
+"

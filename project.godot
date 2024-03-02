@@ -1,0 +1,32 @@
+; Engine configuration file.
+; It's best edited using the editor UI and not directly,
+; since the parameters that go here are not all obvious.
+;
+; Format:
+;   [section] ; section goes between []
+;   param=value ; assign values to parameters
+
+config_version=5
+
+[application]
+
+config/name="gdscript"
+run/main_scene="res://node_2d.tscn"
+config/features=PackedStringArray("4.2", "Forward Plus")
+config/icon="res://icon.svg"
+
+[autoload]
+
+ESCENAAUTOLOAD="*res://escenaSingleton.tscn"
+SCRIPTAUTOLOAD="*res://scriptSingleton.gd"
+
+[editor_plugins]
+
+enabled=PackedStringArray("res://addons/ResourcePlus-f4702f7afff318f283a9109ec5fb31da5b430b05/addons/ResourcePlus/plugin.cfg", "res://addons/script-ide/plugin.cfg")
+
+[rendering]
+
+textures/canvas_textures/default_texture_filter=0
+textures/default_filters/anisotropic_filtering_level=1
+textures/decals/filter=0
+textures/light_projectors/filter=0

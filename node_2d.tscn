@@ -1,0 +1,23 @@
+[gd_scene load_steps=3 format=3 uid="uid://by2gvqdysqnm0"]
+
+[ext_resource type="Script" path="res://script.gd" id="1_ok6di"]
+[ext_resource type="Script" path="res://escena.gd" id="2_uanm6"]
+
+[node name="Node2D" type="Node2D"]
+
+[node name="objeto" type="Node2D" parent="."]
+script = ExtResource("1_ok6di")
+
+[node name="sub2" type="Node2D" parent="objeto"]
+
+[node name="objeto2" type="Node3D" parent="."]
+script = ExtResource("2_uanm6")
+
+[node name="sub" type="Node2D" parent="objeto2" groups=["cosas", "cosas2"]]
+
+[node name="subsub" type="Node2D" parent="objeto2/sub"]
+
+[node name="Sprite2D" type="Sprite2D" parent="objeto2"]
+metadata/datos = 0
+
+[connection signal="hidden" from="objeto" to="objeto2" method="_on_objeto_hidden"]

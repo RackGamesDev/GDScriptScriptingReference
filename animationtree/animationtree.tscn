@@ -1,0 +1,101 @@
+[gd_scene load_steps=12 format=3 uid="uid://6sy6flco7w7y"]
+
+[ext_resource type="Script" path="res://animationtree/animationtree.gd" id="1_wmr5p"]
+[ext_resource type="Texture2D" uid="uid://co1t7nlxbtnj" path="res://animationtree/animacion.png" id="2_6u035"]
+
+[sub_resource type="Animation" id="Animation_ban5k"]
+resource_name = "vertical"
+loop_mode = 1
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath(".:frame")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0, 0.5),
+"transitions": PackedFloat32Array(1, 1),
+"update": 1,
+"values": [0, 2]
+}
+
+[sub_resource type="Animation" id="Animation_gnbfc"]
+length = 0.001
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath(".:frame")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 1,
+"values": [0]
+}
+
+[sub_resource type="Animation" id="Animation_rcupu"]
+resource_name = "horizontal"
+loop_mode = 1
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath(".:frame")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0, 0.5),
+"transitions": PackedFloat32Array(1, 1),
+"update": 1,
+"values": [1, 3]
+}
+
+[sub_resource type="AnimationLibrary" id="AnimationLibrary_rrdnc"]
+_data = {
+"RESET": SubResource("Animation_gnbfc"),
+"horizontal": SubResource("Animation_rcupu"),
+"vertical": SubResource("Animation_ban5k")
+}
+
+[sub_resource type="AnimationNodeAnimation" id="AnimationNodeAnimation_tjh81"]
+animation = &"horizontal"
+
+[sub_resource type="AnimationNodeAnimation" id="AnimationNodeAnimation_phov0"]
+animation = &"vertical"
+
+[sub_resource type="AnimationNodeStateMachineTransition" id="AnimationNodeStateMachineTransition_tiyfh"]
+advance_mode = 2
+
+[sub_resource type="AnimationNodeStateMachineTransition" id="AnimationNodeStateMachineTransition_fvf6k"]
+switch_mode = 2
+advance_mode = 2
+
+[sub_resource type="AnimationNodeStateMachine" id="AnimationNodeStateMachine_nmbu1"]
+states/Start/position = Vector2(91, 147)
+states/horizontal/node = SubResource("AnimationNodeAnimation_tjh81")
+states/horizontal/position = Vector2(322, 157)
+states/vertical/node = SubResource("AnimationNodeAnimation_phov0")
+states/vertical/position = Vector2(539, 168)
+transitions = ["Start", "horizontal", SubResource("AnimationNodeStateMachineTransition_tiyfh"), "vertical", "horizontal", SubResource("AnimationNodeStateMachineTransition_fvf6k")]
+graph_offset = Vector2(-114, 73)
+
+[node name="Animationtree" type="Node2D"]
+script = ExtResource("1_wmr5p")
+
+[node name="Sprite2D" type="Sprite2D" parent="."]
+position = Vector2(339, 154)
+scale = Vector2(8, 8)
+texture = ExtResource("2_6u035")
+hframes = 4
+
+[node name="AnimationPlayer" type="AnimationPlayer" parent="Sprite2D"]
+libraries = {
+"": SubResource("AnimationLibrary_rrdnc")
+}
+
+[node name="AnimationTree" type="AnimationTree" parent="Sprite2D"]
+libraries = {
+"": SubResource("AnimationLibrary_rrdnc")
+}
+tree_root = SubResource("AnimationNodeStateMachine_nmbu1")
+anim_player = NodePath("../AnimationPlayer")
