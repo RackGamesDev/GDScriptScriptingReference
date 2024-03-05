@@ -1,0 +1,33 @@
+[gd_scene load_steps=7 format=3 uid="uid://cd08t80ex31yr"]
+
+[ext_resource type="Shader" path="res://shaders/shader1.gdshader" id="1_ynv8k"]
+[ext_resource type="Texture2D" uid="uid://dngs8p3rkyfn2" path="res://ejemplo.png" id="2_xhkqn"]
+[ext_resource type="Shader" uid="uid://1ft8iyi5f5w3" path="res://shaders/cambiar_color.tres" id="3_64cxj"]
+[ext_resource type="Script" path="res://shaders/control_shaders.gd" id="4_eoy00"]
+
+[sub_resource type="ShaderMaterial" id="ShaderMaterial_6wjv4"]
+shader = ExtResource("1_ynv8k")
+
+[sub_resource type="ShaderMaterial" id="ShaderMaterial_kx8ij"]
+shader = ExtResource("3_64cxj")
+shader_parameter/tolerancia = 0.01
+shader_parameter/reemplazo = Color(0.807843, 0.807843, 0.807843, 1)
+
+[node name="Shaders" type="Node2D"]
+
+[node name="Icon" type="Sprite2D" parent="."]
+material = SubResource("ShaderMaterial_6wjv4")
+position = Vector2(521, 289)
+texture = ExtResource("2_xhkqn")
+
+[node name="Icon2" type="Sprite2D" parent="."]
+material = SubResource("ShaderMaterial_kx8ij")
+position = Vector2(811, 281)
+texture = ExtResource("2_xhkqn")
+script = ExtResource("4_eoy00")
+
+[node name="ColorPicker" type="ColorPicker" parent="."]
+visible = false
+offset_right = 298.0
+offset_bottom = 576.0
+color = Color(0, 1, 0, 1)

@@ -1,14 +1,94 @@
-[gd_scene load_steps=4 format=3 uid="uid://cd08t80ex31yr"]
+[gd_scene load_steps=15 format=3 uid="uid://cd08t80ex31yr"]
 
 [ext_resource type="Shader" path="res://shaders/shader1.gdshader" id="1_ynv8k"]
-[ext_resource type="Texture2D" uid="uid://lb25s7ad4plg" path="res://icon.svg" id="2_d35xl"]
+[ext_resource type="Texture2D" uid="uid://dngs8p3rkyfn2" path="res://ejemplo.png" id="2_xhkqn"]
+[ext_resource type="Shader" uid="uid://1ft8iyi5f5w3" path="res://shaders/cambiar_color.tres" id="3_64cxj"]
+[ext_resource type="Script" path="res://shaders/control_shaders.gd" id="4_eoy00"]
+[ext_resource type="Shader" path="res://shaders/fullscreen_shader_aberracion_cromatica.gdshader" id="5_p146s"]
+[ext_resource type="Shader" path="res://shaders/spatial_shader_pixelation.gdshader" id="6_g70r0"]
+[ext_resource type="Shader" path="res://shaders/spatial_shader.gdshader" id="6_mlkch"]
 
 [sub_resource type="ShaderMaterial" id="ShaderMaterial_6wjv4"]
 shader = ExtResource("1_ynv8k")
+shader_parameter/externa = null
+shader_parameter/uncolor = null
+
+[sub_resource type="ShaderMaterial" id="ShaderMaterial_kx8ij"]
+shader = ExtResource("3_64cxj")
+shader_parameter/tolerancia = 0.01
+shader_parameter/reemplazo = Color(0.807843, 0.807843, 0.807843, 1)
+
+[sub_resource type="ShaderMaterial" id="ShaderMaterial_dh5r7"]
+shader = ExtResource("5_p146s")
+shader_parameter/offset = 3.09
+
+[sub_resource type="ShaderMaterial" id="ShaderMaterial_kqxwf"]
+render_priority = 0
+shader = ExtResource("6_mlkch")
+
+[sub_resource type="SphereMesh" id="SphereMesh_iyhwc"]
+
+[sub_resource type="ShaderMaterial" id="ShaderMaterial_j206y"]
+render_priority = 0
+shader = ExtResource("6_g70r0")
+shader_parameter/pixel_size = 11
+
+[sub_resource type="QuadMesh" id="QuadMesh_5s80a"]
+material = SubResource("ShaderMaterial_j206y")
 
 [node name="Shaders" type="Node2D"]
 
 [node name="Icon" type="Sprite2D" parent="."]
 material = SubResource("ShaderMaterial_6wjv4")
-position = Vector2(602, 287)
-texture = ExtResource("2_d35xl")
+position = Vector2(526, 269)
+texture = ExtResource("2_xhkqn")
+
+[node name="Icon2" type="Sprite2D" parent="."]
+material = SubResource("ShaderMaterial_kx8ij")
+position = Vector2(811, 281)
+texture = ExtResource("2_xhkqn")
+script = ExtResource("4_eoy00")
+
+[node name="Control" type="Control" parent="."]
+layout_mode = 3
+anchors_preset = 0
+offset_right = 40.0
+offset_bottom = 40.0
+
+[node name="ColorPicker" type="ColorPicker" parent="Control"]
+visible = false
+layout_mode = 0
+offset_right = 298.0
+offset_bottom = 576.0
+color = Color(0, 1, 0, 1)
+
+[node name="Camera2D" type="Camera2D" parent="."]
+position = Vector2(577, 325)
+
+[node name="CanvasLayer" type="CanvasLayer" parent="Camera2D"]
+
+[node name="ColorRect" type="ColorRect" parent="Camera2D/CanvasLayer"]
+material = SubResource("ShaderMaterial_dh5r7")
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+offset_left = 1.0
+offset_top = -5.0
+offset_right = 1.0
+offset_bottom = -5.0
+grow_horizontal = 2
+grow_vertical = 2
+
+[node name="Node3D" type="Node3D" parent="."]
+
+[node name="MeshInstance3D" type="MeshInstance3D" parent="Node3D"]
+material_override = SubResource("ShaderMaterial_kqxwf")
+mesh = SubResource("SphereMesh_iyhwc")
+
+[node name="Camera3D" type="Camera3D" parent="Node3D"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0.83197, 2.43805)
+
+[node name="MeshInstance3D2" type="MeshInstance3D" parent="Node3D/Camera3D"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -0.180362, 0, -0.741331)
+mesh = SubResource("QuadMesh_5s80a")
+skeleton = NodePath("../..")
