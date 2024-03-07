@@ -13,3 +13,12 @@ func random(menos:int, mas:int) -> int: #generar numero aleatorio
 	var rng = RandomNumberGenerator.new()
 	var num = rng.randi_range(menos, mas)
 	return num
+
+func find_node_by_name(root, name):
+	if(root.get_name() == name): return root
+	for child in root.get_children():
+		if(child.get_name() == name):
+			return child
+		var found = find_node_by_name(child, name)
+		if(found): return found
+	return null
