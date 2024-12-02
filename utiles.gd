@@ -8,7 +8,7 @@ func get_axis() -> Vector2: #Movimiento segun teclas (esto en _process)
 	# move_and_slice()
 	return axis.normalized() # * velocidad
 
-func random(menos:int, mas:int) -> int: #generar numero aleatorio
+func random(menos:int, mas:int) -> int: #Generar numero aleatorio
 	randomize()
 	var rng = RandomNumberGenerator.new()
 	var num = rng.randi_range(menos, mas)
