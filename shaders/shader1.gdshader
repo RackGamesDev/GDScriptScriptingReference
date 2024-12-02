@@ -1,20 +1,20 @@
-//para hacer un shader en godot se aplica un archivo .gshader a un material de un nodo
-shader_type canvas_item;//los shaders canvas_item son para 2d
+//Para hacer un shader en godot se aplica un archivo .gshader a un material de un nodo
+shader_type canvas_item;//Los shaders canvas_item son para 2d
 
-uniform vec3 externa;//parametro del shader modificable desde fuera
-uniform vec3 uncolor:source_color;//pueden ser modificados para verse distinto en el inspector
+uniform vec3 externa;//Parametro del shader modificable desde fuera
+uniform vec3 uncolor:source_color;//Pueden ser modificados para verse distinto en el inspector
 
 void cosas_generales(){
-	float tiempo = TIME;//time hace referencia al tiempo desde que se carga el shader
-	tiempo = sin(tiempo);//devuelve el seno de un numero
-	tiempo = length(externa);//devuelve la distancia del punto hasta 0
-	tiempo = step(0.01, tiempo);//redondea un numero a escalones
-	tiempo = floor(tiempo);//redondea a entero
+	float tiempo = TIME;//Time hace referencia al tiempo desde que se carga el shader
+	tiempo = sin(tiempo);//Devuelve el seno de un numero
+	tiempo = length(externa);//Devuelve la distancia del punto hasta 0
+	tiempo = step(0.01, tiempo);//Redondea un numero a escalones
+	tiempo = floor(tiempo);//Redondea a entero
 }
 
-void fragment() {//llamado por cada pixel, donde COLOR hace refenencia a un vec4 con rgba del 0 al 1
-	vec4 input_color = texture(TEXTURE, UV);//hace referencia a la textura/sprite mediante vector4
-	COLOR = vec4(1.0, input_color.g, input_color.b, input_color.a);//hace referencia al color del pixel
+void fragment() {//Llamado por cada pixel, donde COLOR hace refenencia a un vec4 con rgba del 0 al 1
+	vec4 input_color = texture(TEXTURE, UV);//Hace referencia a la textura/sprite mediante vector4
+	COLOR = vec4(1.0, input_color.g, input_color.b, input_color.a);//Hace referencia al color del pixel
 	//ALBEDO = vec3(1.0, 0.0, 1.0);
 }
 
