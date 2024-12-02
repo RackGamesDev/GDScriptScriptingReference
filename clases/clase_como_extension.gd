@@ -1,4 +1,4 @@
-extends Persona #este script hereda de una clase personalizada, asi que tendra sus propiedades y metodos
+extends Persona #Este script hereda de una clase personalizada, asi que tendra sus propiedades y metodos
 
 func _ready():
-	nombre = "asdf" #variable ya declarada en la clase
+	nombre = "asdf" #Variable ya declarada en la clase
